@@ -7,7 +7,7 @@ CONTIKI_AVR=$(CONTIKI)/cpu/avr
 CONTIKI_PLAT_DEFS = -DF_CPU=16000000UL -DAUTO_CRC_PADDING=2
 
 # Bring in Arduino core, or leave this blank if no core
-ARDUINO_CORE = $(HOME)/Zigduino/arduino/cores/zigduino
+# ARDUINO_CORE = $(HOME)/Zigduino/arduino/cores/zigduino
 ifneq ($(ARDUINO_CORE),) 
 CFLAGS += -I$(ARDUINO_CORE) -DARDUINO_CORE=1
 PROJECTDIRS += $(ARDUINO_CORE)
@@ -22,7 +22,7 @@ endif
 MCU=atmega128rfa1
 
 AVRDUDE_PROGRAMMER=arduino
-AVRDUDE_PORT ?= /dev/tty.usbserial-A4009YFR
+AVRDUDE_PORT ?= /dev/ttyUSB0
 AVRDUDE_OPTIONS=-V -F -D -b 57600
 
 SERIAL_DUMP = $(CONTIKI)/tools/sky/serialdump-linux
