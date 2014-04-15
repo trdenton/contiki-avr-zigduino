@@ -37,7 +37,7 @@
 #include <avr/interrupt.h>
 
 /* Will affect radio on/off timing for cx-mac */
-#define RTIMER_ARCH_SECOND (8192)
+#define RTIMER_ARCH_SECOND (F_CPU/1024)	//used to be (8192)
 
 
 
