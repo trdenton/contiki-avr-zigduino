@@ -45,7 +45,7 @@
 #define PLATFORM       PLATFORM_AVR
 #define HARWARE_REVISION ATMEGA128RFA1
 #ifndef F_CPU
-#define F_CPU          8000000UL
+#define F_CPU          16000000UL	//used to be 8000000UL -TD
 #endif
 #include <stdint.h>
 

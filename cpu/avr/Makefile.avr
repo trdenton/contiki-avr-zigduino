@@ -123,16 +123,16 @@ CONTIKI_TARGET_DIRS_CONCAT = ${addprefix $(CONTIKI)/platform/$(TARGET)/, \
 ### Compilation rules
 
 $(OBJECTDIR)/%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -lm
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -lm
 
 %.ko: %.o
 	$(STRIP) -K _init -K _fini --strip-unneeded -g -x $< -o $@
 
 %.elf:	%.co $(PROJECT_OBJECTFILES) contiki-$(TARGET).a symbols.o
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(filter-out %.a,$^) $(filter %.a,$^) $(LDLIBS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(filter-out %.a,$^) $(filter %.a,$^) $(LDLIBS) -lm
 #Allow top-level makefile to always show size even when build is up to date
 ifndef NOAVRSIZE
 	avr-size -C --mcu=$(MCU) $@
@@ -179,7 +179,7 @@ endif
 %.co: %.c
 	cp ${CONTIKI}/tools/empty-symbols.c symbols.c
 	cp ${CONTIKI}/tools/empty-symbols.h symbols.h
-	$(CC) $(CFLAGS) -DAUTOSTART_ENABLE -c $< -o $@
+	$(CC) $(CFLAGS) -DAUTOSTART_ENABLE -c $< -o $@ -lm
 
 %-stripped.o: %.o
 	$(STRIP) --strip-unneeded -g -x -o $@ $<
@@ -188,7 +188,7 @@ endif
 	$(AS) -o $(notdir $(<:.S=.o)) $<
 
 %.srec: %.$(TARGET)
-	$(OBJCOPY) -O srec $< $@
+	$(OBJCOPY) -O srec $< $@ 
 
 ### Upload image
 %.u: %.hex
